@@ -57,9 +57,7 @@ const AuthorType = new GraphQLObjectType({
   }
 })
 
-// responsibility 2: define relationships (TBA);
-
-// responsibility 3: define root query (queries);
+// responsibility 2: define relationships (if necessary) and responsibility 3: define root query (queries);
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
@@ -77,6 +75,7 @@ const RootQuery = new GraphQLObjectType({
         // the data type of args.id here is a string, regardless of how it is inputted (as an integer or as a string) on the client-side;
         // an error will be raised if the argument on the client-side is anything other than an integer or a string;
         // specifying GraphQLID helps with self-documenting code;
+        // this resolve function should return an object that is shaped in a legal way such that it will pass all the enforced validations;
         const targetBook = books.find(book => book.id === args.id);
         return targetBook;
       }
