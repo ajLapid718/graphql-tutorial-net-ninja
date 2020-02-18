@@ -6,13 +6,19 @@
 // 2) define relationships between types;
 // 3) define root queries (how we describe to the client entry points to the graph);
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt } = graphql;
 
 // dummy data/mockDB;
 const books = [
   { id: "1", name: "Name of the Wind", genre: "Fantasy" },
   { id: "2", name: "The Final Empire", genre: "Fantasy" },
   { id: "3", name: "The Long Earth", genre: "Sci-Fi" }
+];
+
+const authors = [
+  { id: "1", name: "Patrick Rothfuss", age: 44 },
+  { id: "2", name: "Brandon Sanderson", age: 42 },
+  { id: "3", name: "The Long Earth", age: 66 }
 ];
 
 // responsibility 1: define types;
@@ -33,6 +39,23 @@ const BookType = new GraphQLObjectType({
     }
   }
 });
+
+const AuthorType = new GraphQLObjectType({
+  name: "Author",
+  fields: () => {
+    return {
+      id: { 
+        type: GraphQLID
+      },
+      name: {
+        type: GraphQLString
+      },
+      age: {
+        type: GraphQLInt
+      }
+    }
+  }
+})
 
 // responsibility 2: define relationships (TBA);
 
