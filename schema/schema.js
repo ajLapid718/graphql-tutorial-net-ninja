@@ -8,7 +8,7 @@
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString } = graphql;
 
-// schema definition: by defining a schema we define the entities that exist, but also the different queries and mutations that are possible to make;
+// responsibility 1: define types;
 const BookType = new GraphQLObjectType({
   name: "Book",
   fields: () => {
@@ -24,4 +24,27 @@ const BookType = new GraphQLObjectType({
       }
     }
   }
+});
+
+// responsibility 2: define relationships (TBA);
+
+// responsibility 3: define root query (queries);
+const RootQuery = new GraphQLObjectType({
+  name: "RootQueryType",
+  fields: {
+    book: BookType,
+  }
 })
+
+/*
+
+SAMPLE QUERY AT THIS POINT;
+
+book {
+  name
+  genre
+}
+
+*/
+
+// schema definition: by defining a schema we define the entities that exist, but also the different queries and mutations that are possible to make;
