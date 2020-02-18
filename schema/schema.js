@@ -35,6 +35,23 @@ const BookType = new GraphQLObjectType({
       },
       genre: {
         type: GraphQLString
+      },
+      author: {
+        type: AuthorType,
+        resolve: (parent, args) => {
+          // here, we will write out the logic and operation to grab the author object related to this book object;
+          // the book object is a node on our graph and the connection between the book node and the author node is called an edge;
+          // aside from that, resolvers are used to return data back;
+          // console.log(parent) // { resolved book node here };
+          // because we have access to the properties on the parent by this point...
+          // ... we can access parent.authorId to grab the related data we currently are targeting;
+          // this is similar to eager-loading in that we can grab related data and give it back to the user as an additional property;
+          // HOWEVER, this is different from eager-loading as this system approaches that same end-goal, but with lazy-loading instead;
+          // this information and this resolver function will only fire off if AND ONLY IF the client specifically queries for it;
+          // this is vastly different from eager-loading, which will append the data to each and every response;
+          const targetAuthor = authors.find(author => author.id === parent.authorId);
+          return targetAuthor;
+        }
       }
     }
   }
