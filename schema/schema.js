@@ -36,10 +36,8 @@ const BookType = new GraphQLObjectType({
       genre: {
         type: GraphQLString
       },
-      hello: { // POINT 1: You can add a field to BookType that doesn't exist in your original raw data as long as you ultimately include this field in the corresponding resolver function;
-      // if a field exists in BookType and is explictly queried for by the client, but for whatever reason is not a part of the object returned by the corresponding resolver function, a null value will appear (with the way we have the code set-up --- it is possible to define types such that they are non-nullable/"required");
-        type: GraphQLString
-      },
+      // A: IT IS PERFECTLY LEGAL TO NOT HAVE A 1:1/IDENTICAL MAPPING BETWEEN THE FIELDS IN THE RAW MOCK DATA AND THE GRAPHQLOBJECTTYPE ---> REVIEW THIS;
+      //B: THE FIELD BELOW TITLED "AUTHOR" DOESN'T EXIST ON THE RAW MOCK DATA ABOVE, BUT WE CAN STILL NEST THIS INFORMATION ON ANY QUERIES FOR A BOOK NODE ---> REVIEW THIS;
       author: {
         type: AuthorType,
         resolve: (parent, args) => {
@@ -98,7 +96,7 @@ const RootQuery = new GraphQLObjectType({
         // specifying GraphQLID helps with self-documenting code;
         // this resolve function should return an object that is shaped in a legal way such that it will pass all the enforced validations;
         const targetBook = books.find(book => book.id === args.id);
-        return {...targetBook, hello: "yeoooo" }; // POINT 1A ---> Append the "hello" field in order to pass all validations enforced by Line 85;
+        return targetBook;
       }
     },
     author: {
