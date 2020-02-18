@@ -6,7 +6,7 @@
 // 2) define relationships between types;
 // 3) define root queries (how we describe to the client entry points to the graph);
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID } = graphql;
 
 // dummy data/mockDB;
 const books = [
@@ -22,7 +22,7 @@ const BookType = new GraphQLObjectType({
   fields: () => {
     return {
       id: {
-        type: GraphQLString
+        type: GraphQLID
       },
       name: {
         type: GraphQLString
@@ -44,12 +44,16 @@ const RootQuery = new GraphQLObjectType({
       type: BookType,
       args: {
         id: {
-          type: GraphQLString // this will type-check/validate the data type of the argument passed into the query from the client;
+          type: GraphQLID // this will type-check/validate the data type of the argument passed into the query from the client;
         }
       },
       resolve: (parent, args) => {
         // grab data from either a database or some other source;
         // we have access to args.id here;
+        // console.log(typeof args.id); // "string";
+        // the data type of args.id here is a string, regardless of how it is inputted (as an integer or as a string) on the client-side;
+        // an error will be raised if the argument on the client-side is anything other than an integer or a string;
+        // specifying GraphQLID helps with self-documenting code;
         const targetBook = books.find(book => book.id === args.id);
         return targetBook;
       }
