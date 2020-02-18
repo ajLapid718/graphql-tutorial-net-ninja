@@ -10,12 +10,13 @@ const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
 
 // dummy data/mockDB;
 const books = [
-  { id: 1, name: "Name of the Wind", genre: "Fantasy" },
-  { id: 2, name: "The Final Empire", genre: "Fantasy" },
-  { id: 3, name: "The Long Earth", genre: "Sci-Fi" }
+  { id: "1", name: "Name of the Wind", genre: "Fantasy" },
+  { id: "2", name: "The Final Empire", genre: "Fantasy" },
+  { id: "3", name: "The Long Earth", genre: "Sci-Fi" }
 ];
 
 // responsibility 1: define types;
+// if any of the actual data values of an entity of data goes against the type properties defined here, the client will still get back any data that was queried for and passed the type-checking process, along with an array of errors that, depending on the discrepency between data value and declared type-check, could output something like this: ""message": "Boolean [[my addition to the message: type-check]] cannot represent a non boolean value [[my addition to the message: actual data value from source of data]]: \"1\"","
 const BookType = new GraphQLObjectType({
   name: "Book",
   fields: () => {
