@@ -1,6 +1,10 @@
 // prepare to set up schema for/with GraphQL;
 // define schema here;
 // our schema will define the data on the graph --- object types, relationships, instructions on how to query/retrieve/mutate data;
+// the three responsibilities of this file are:
+// 1) define types;
+// 2) define relationships between types;
+// 3) define root queries (how we describe to the client entry points to the graph);
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString } = graphql;
 
