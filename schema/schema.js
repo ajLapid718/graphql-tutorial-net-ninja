@@ -18,7 +18,7 @@ const books = [
 const authors = [
   { id: "1", name: "Patrick Rothfuss", age: 44 },
   { id: "2", name: "Brandon Sanderson", age: 42 },
-  { id: "3", name: "The Long Earth", age: 66 }
+  { id: "3", name: "Terry Pratchett", age: 66 }
 ];
 
 // responsibility 1: define types;
@@ -80,6 +80,18 @@ const RootQuery = new GraphQLObjectType({
         const targetBook = books.find(book => book.id === args.id);
         return targetBook;
       }
+    },
+    author: {
+      type: AuthorType,
+      args: {
+        id: {
+          type: GraphQLID
+        }
+      },
+      resolve: (parent, args) => {
+        const targetAuthor = authors.find(author => author.id === args.id);
+        return targetAuthor;
+      }
     }
   }
 })
@@ -88,9 +100,14 @@ const RootQuery = new GraphQLObjectType({
 
 SAMPLE QUERY AT THIS POINT;
 
-book (id: "123") {
+book (id: "2") {
   name
   genre
+}
+
+author (id: "1") {
+  name
+  age
 }
 
 */
