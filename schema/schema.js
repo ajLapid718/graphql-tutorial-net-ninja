@@ -8,6 +8,13 @@
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
 
+// dummy data/mockDB;
+const books = [
+  { id: 1, name: "Name of the Wind", genre: "Fantasy"},
+  { id: 2, name: "The Final Empire", genre: "Fantasy"},
+  { id: 3, name: "The Long Earth", genre: "Sci-Fi"}
+];
+
 // responsibility 1: define types;
 const BookType = new GraphQLObjectType({
   name: "Book",
