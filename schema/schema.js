@@ -6,7 +6,7 @@
 // 2) define relationships between types;
 // 3) define root queries (how we describe to the client entry points to the graph);
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
 
 // responsibility 1: define types;
 const BookType = new GraphQLObjectType({
@@ -37,6 +37,11 @@ const RootQuery = new GraphQLObjectType({
       id: {
         type: GraphQLString
       }
+    },
+    resolve(parent, args) {
+      // code to get data from database/other source;
+      // we have access to args.id here;
+      // TBD;
     }
   }
 })
@@ -53,3 +58,7 @@ book (id: "123") {
 */
 
 // schema definition: by defining a schema we define the entities that exist, but also the different queries and mutations that are possible to make;
+
+module.exports = new GraphQLSchema({
+  query: RootQuery
+});
