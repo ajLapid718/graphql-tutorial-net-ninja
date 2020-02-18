@@ -20,6 +20,8 @@ const schema = require("./schema/schema.js");
   ]
 }
 
+after passing in the schema, and then hitting the "/graphql" endpoint, this will be the error message we see on the client:
+
 */
 
 app.use("/graphql", graphqlHTTP({

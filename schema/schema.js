@@ -10,9 +10,9 @@ const { GraphQLObjectType, GraphQLString, GraphQLSchema } = graphql;
 
 // dummy data/mockDB;
 const books = [
-  { id: 1, name: "Name of the Wind", genre: "Fantasy"},
-  { id: 2, name: "The Final Empire", genre: "Fantasy"},
-  { id: 3, name: "The Long Earth", genre: "Sci-Fi"}
+  { id: 1, name: "Name of the Wind", genre: "Fantasy" },
+  { id: 2, name: "The Final Empire", genre: "Fantasy" },
+  { id: 3, name: "The Long Earth", genre: "Sci-Fi" }
 ];
 
 // responsibility 1: define types;
@@ -20,8 +20,8 @@ const BookType = new GraphQLObjectType({
   name: "Book",
   fields: () => {
     return {
-      id: { 
-        type: GraphQLString 
+      id: {
+        type: GraphQLString
       },
       name: {
         type: GraphQLString
@@ -39,17 +39,19 @@ const BookType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
-    book: BookType,
-    args: {
-      id: {
-        type: GraphQLString
+    book: {
+      type: BookType,
+      args: {
+        id: {
+          type: GraphQLString
+        }
+      },
+      resolve: (parent, args) => {
+        // grab data from either a database or some other source;
+        // we have access to args.id here;
+        const targetBook = books.find(book => book.id === args.id);
+        return targetBook;
       }
-    },
-    resolve(parent, args) {
-      // code to get data from database/other source;
-      // we have access to args.id here;
-      const targetBook = books.find(book => book.id === args.id);
-      return targetBook;
     }
   }
 })
