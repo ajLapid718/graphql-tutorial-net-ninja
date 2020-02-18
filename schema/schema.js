@@ -33,6 +33,11 @@ const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
     book: BookType,
+    args: {
+      id: {
+        type: GraphQLString
+      }
+    }
   }
 })
 
@@ -40,7 +45,7 @@ const RootQuery = new GraphQLObjectType({
 
 SAMPLE QUERY AT THIS POINT;
 
-book {
+book (id: "123") {
   name
   genre
 }
