@@ -44,7 +44,7 @@ const RootQuery = new GraphQLObjectType({
       type: BookType,
       args: {
         id: {
-          type: GraphQLString
+          type: GraphQLString // this will type-check/validate the data type of the argument passed into the query from the client;
         }
       },
       resolve: (parent, args) => {
