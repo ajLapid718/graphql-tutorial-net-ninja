@@ -31,6 +31,8 @@ const authors = [
 // data]]: \"1\"","
 const BookType = new GraphQLObjectType({
   name: "Book",
+  // FIELDS: THE CLIENT CAN ONLY QUERY FOR WHAT IS DEFINED IN FIELDS 
+  // NO MORE, NO LESS (?);
   fields: () => {
     return {
       id: {
@@ -81,6 +83,7 @@ const BookType = new GraphQLObjectType({
           // data to each and every response;
           // console.log("parent???", parent) // NB: CLARIFICATION ----------->
           // parent === the object returned by resolver function to get book node above;
+          
           const targetAuthor = authors.find(author => author.id === parent.authorId);
           return targetAuthor;
         }
