@@ -81,7 +81,8 @@ const AuthorType = new GraphQLObjectType({
 
 // responsibility 2: define relationships (if necessary) and responsibility 3: define root query (queries);
 const RootQuery = new GraphQLObjectType({
-  name: "RootQueryType",
+  name: "RootQueryTypeeeeee", // this is the name that will appear in either GraphiQL or GraphQL Playground in the introspective self-documentation;
+  description: "This is hello, this is goodbye", // this is the description that will appear in either GraphiQL or GraphQL Playground in the introspective self-documentation;
   fields: {
     book: {
       type: BookType,
