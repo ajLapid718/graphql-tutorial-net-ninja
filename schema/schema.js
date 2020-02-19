@@ -41,6 +41,8 @@ const BookType = new GraphQLObjectType({
 
       // B: THE FIELD BELOW TITLED "AUTHOR" DOESN'T EXIST ON THE RAW MOCK DATA ABOVE, BUT WE CAN STILL NEST THIS INFORMATION ON ANY QUERIES FOR A BOOK NODE ---> Remember, we do not need to enforce validations to account for each and every field in the raw mock data ---> We are not bound to or bound by the particular fields in the raw mock data as our main priority is to enforce validations on whatever is returned by the resolver function;
 
+      // test;
+
       author: {
         type: AuthorType,
         resolve: (parent, args) => {
