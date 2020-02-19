@@ -173,3 +173,72 @@ author (id: "1") {
 module.exports = new GraphQLSchema({
   query: RootQuery
 });
+
+/* 
+
+SOME RELEVANT (?) CODE FROM THE SOURCE CODE TO HELP EXPLAIN WHY/WHEN THE
+VALUE OF FIELDS SHOULD DIRECTLY BE AN OBJECT OR SHOULD BE A FUNCTION THAT
+RETURNS AN OBJECT; 
+
+*/
+
+/** 
+ * Object Type Definition
+ *
+ * Almost all of the GraphQL types you define will be object types. Object types
+ * have a name, but most importantly describe their fields.
+ *
+ * Example:
+ *
+ *     const AddressType = new GraphQLObjectType({
+ *       name: 'Address',
+ *       fields: {
+ *         street: { type: GraphQLString },
+ *         number: { type: GraphQLInt },
+ *         formatted: {
+ *           type: GraphQLString,
+ *           resolve(obj) {
+ *             return obj.number + ' ' + obj.street
+ *           }
+ *         }
+ *       }
+ *     });
+ *
+ * When two types need to refer to each other, or a type needs to refer to
+ * itself in a field, you can use a function expression (aka a closure or a
+ * thunk) to supply the fields lazily.
+ *
+ * Example:
+ *
+ *     const PersonType = new GraphQLObjectType({
+ *       name: 'Person',
+ *       fields: () => ({
+ *         name: { type: GraphQLString },
+ *         bestFriend: { type: PersonType },
+ *       })
+ *     });
+ *
+ */
+
+ /*
+
+ /*
+ * Used while defining GraphQL types to allow for circular references in
+ * otherwise immutable type definitions.
+export type Thunk<+T> = (() => T) | T;
+
+function resolveThunk<+T>(thunk: Thunk<T>): T {
+  // $FlowFixMe(>=0.90.0)
+  return typeof thunk === 'function' ? thunk() : thunk;
+}
+
+AND
+
+  getFields(): GraphQLFieldMap<any, any> {
+    if (typeof this._fields === 'function') {
+      this._fields = this._fields();
+    }
+    return this._fields;
+  }
+
+*/
