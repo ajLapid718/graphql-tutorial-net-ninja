@@ -21,8 +21,14 @@ const authors = [
   { id: "3", name: "Terry Pratchett", age: 66 }
 ];
 
-// responsibility 1: define types;
-// if any of the actual data values of an entity of data goes against the type properties defined here, the client will still get back any data that was queried for and passed the type-checking process, along with an array of errors that, depending on the discrepency between data value and declared type-check, could output something like this: ""message": "Boolean [[my addition to the message: type-check]] cannot represent a non boolean value [[my addition to the message: actual data value from source of data]]: \"1\"","
+// responsibility 1: define types; if any of the actual data values of an entity
+// of data goes against the type properties defined here, the client will still
+// get back any data that was queried for and passed the type-checking process,
+// along with an array of errors that, depending on the discrepency between data
+// value and declared type-check, could output something like this: ""message":
+// "Boolean [[my addition to the message: type-check]] cannot represent a non
+// boolean value [[my addition to the message: actual data value from source of
+// data]]: \"1\"","
 const BookType = new GraphQLObjectType({
   name: "Book",
   fields: () => {
@@ -37,11 +43,25 @@ const BookType = new GraphQLObjectType({
         type: GraphQLString
       },
       
-      /* 
-      
-      A: IT IS PERFECTLY LEGAL TO NOT HAVE A 1:1/IDENTICAL MAPPING BETWEEN THE FIELDS (WE AREN'T ASKING FOR OR VALIDATING AN AUTHORID HERE BUT IT EXISTS IN THE INDIVIDUAL INSTANCES IN THE DUMMY DATA) IN THE RAW MOCK DATA AND THE GRAPHQLOBJECTTYPE ---> This is the case because what is exactly contained in the raw mock data is not what we'll be using to composing our "graph" API ---> Put another way, the client cannot query for something that they are not exposed to ---> The validations will be enforced upon completion of resolver function (return value of resolver), not before or after (?);
+      /*
 
-      B: THE FIELD BELOW TITLED "AUTHOR" DOESN'T EXIST ON THE RAW MOCK DATA ABOVE, BUT WE CAN STILL NEST THIS INFORMATION ON ANY QUERIES FOR A BOOK NODE ---> Remember, we do not need to enforce validations to account for each and every field in the raw mock data ---> We are not bound to or bound by the particular fields in the raw mock data as our main priority is to enforce validations on whatever is returned by the resolver function;
+      A: IT IS PERFECTLY LEGAL TO NOT HAVE A 1:1/IDENTICAL MAPPING BETWEEN THE
+      FIELDS (WE AREN'T ASKING FOR OR VALIDATING AN AUTHORID HERE BUT IT EXISTS
+      IN THE INDIVIDUAL INSTANCES IN THE DUMMY DATA) IN THE RAW MOCK DATA AND
+      THE GRAPHQLOBJECTTYPE ---> This is the case because what is exactly
+      contained in the raw mock data is not what we'll be using to composing our
+      "graph" API ---> Put another way, the client cannot query for something
+      that they are not exposed to ---> The validations will be enforced upon
+      completion of resolver function (return value of resolver), not before or
+      after (?);
+
+      B: THE FIELD BELOW TITLED "AUTHOR" DOESN'T EXIST ON THE RAW MOCK DATA
+      ABOVE, BUT WE CAN STILL NEST THIS INFORMATION ON ANY QUERIES FOR A BOOK
+      NODE ---> Remember, we do not need to enforce validations to account for
+      each and every field in the raw mock data ---> We are not bound to or
+      bound by the particular fields in the raw mock data as our main priority
+      is to enforce validations on whatever is returned by the resolver
+      function;
 
       */
 
