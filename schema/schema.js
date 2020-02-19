@@ -109,7 +109,7 @@ const AuthorType = new GraphQLObjectType({
         type: GraphQLInt
       },
       books: {
-        type: new GraphQLList(BookType), // possibly make this a reusable type (?);
+        type: BooksType,
         resolve: (parent, args) => {
           const targetBooks = books.filter(book => book.authorId === parent.id);
           return targetBooks;
@@ -118,6 +118,9 @@ const AuthorType = new GraphQLObjectType({
     }
   }
 })
+
+const BooksType = new GraphQLList(BookType);
+const AuthorsType = new GraphQLList(AuthorType);
 
 // responsibility 2: define relationships (if necessary) and responsibility 3: define root query (queries);
 const RootQuery = new GraphQLObjectType({
@@ -147,6 +150,12 @@ const RootQuery = new GraphQLObjectType({
         return targetBook;
       }
     },
+    getBooks: {
+      type: BooksType,
+      resolve: (parent, args) => {
+        return books;
+      }
+    },
     getAuthor: {
       type: AuthorType,
       args: {
@@ -157,6 +166,12 @@ const RootQuery = new GraphQLObjectType({
       resolve: (parent, args) => {
         const targetAuthor = authors.find(author => author.id === args.id);
         return targetAuthor;
+      }
+    },
+    getAuthors: {
+      type: AuthorsType,
+      resolve: (parent, args) => {
+        return authors;
       }
     }
   }
