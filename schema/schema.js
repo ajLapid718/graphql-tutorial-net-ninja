@@ -169,7 +169,7 @@ const RootQuery = new GraphQLObjectType({
       }
     },
     getAuthors: {
-      type: AuthorsType,
+      // type: AuthorsType, // if omitted, this will raise an error --> this is mandatory;
       resolve: (parent, args) => {
         return authors;
       }
