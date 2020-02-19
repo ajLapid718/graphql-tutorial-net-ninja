@@ -242,3 +242,7 @@ AND
   }
 
 */
+
+// look into circular references, backreferences, nested/circular/infinite...
+// ...queries on client-side, how dataloader might handle that, how we might
+// protect against malicious queries;
