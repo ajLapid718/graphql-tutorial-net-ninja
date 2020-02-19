@@ -109,7 +109,7 @@ const AuthorType = new GraphQLObjectType({
         type: GraphQLInt
       },
       books: {
-        type: new GraphQLList(BookType),
+        type: new GraphQLList(BookType), // possibly make this a reusable type (?);
         resolve: (parent, args) => {
           const targetBooks = books.filter(book => book.authorId === parent.id);
           return targetBooks;
