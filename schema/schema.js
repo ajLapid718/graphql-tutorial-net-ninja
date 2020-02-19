@@ -36,8 +36,11 @@ const BookType = new GraphQLObjectType({
       genre: {
         type: GraphQLString
       },
-      // A: IT IS PERFECTLY LEGAL TO NOT HAVE A 1:1/IDENTICAL MAPPING BETWEEN THE FIELDS IN THE RAW MOCK DATA AND THE GRAPHQLOBJECTTYPE ---> REVIEW THIS;
-      //B: THE FIELD BELOW TITLED "AUTHOR" DOESN'T EXIST ON THE RAW MOCK DATA ABOVE, BUT WE CAN STILL NEST THIS INFORMATION ON ANY QUERIES FOR A BOOK NODE ---> REVIEW THIS;
+      
+      // A: IT IS PERFECTLY LEGAL TO NOT HAVE A 1:1/IDENTICAL MAPPING BETWEEN THE FIELDS (WE AREN'T ASKING FOR OR VALIDATING AN AUTHORID HERE BUT IT EXISTS IN THE INDIVIDUAL INSTANCES IN THE DUMMY DATA) IN THE RAW MOCK DATA AND THE GRAPHQLOBJECTTYPE ---> This is the case because what is exactly contained in the raw mock data is not what we'll be using to composing our "graph" API ---> Put another way, the client cannot query for something that they are not exposed to ---> The validations will be enforced upon completion of resolver function (return value of resolver), not before or after (?);
+
+      // B: THE FIELD BELOW TITLED "AUTHOR" DOESN'T EXIST ON THE RAW MOCK DATA ABOVE, BUT WE CAN STILL NEST THIS INFORMATION ON ANY QUERIES FOR A BOOK NODE ---> Remember, we do not need to enforce validations to account for each and every field in the raw mock data ---> We are not bound to or bound by the particular fields in the raw mock data as our main priority is to enforce validations on whatever is returned by the resolver function;
+
       author: {
         type: AuthorType,
         resolve: (parent, args) => {
