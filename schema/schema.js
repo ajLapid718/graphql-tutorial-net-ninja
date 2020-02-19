@@ -6,7 +6,7 @@
 // 2) define relationships between types;
 // 3) define root queries (how we describe to the client entry points to the graph);
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList } = graphql;
 
 // dummy data/mockDB;
 const books = [
@@ -107,6 +107,13 @@ const AuthorType = new GraphQLObjectType({
       },
       age: {
         type: GraphQLInt
+      },
+      books: {
+        type: new GraphQLList(BookType),
+        resolve: (parent, args) => {
+          const targetBooks = books.filter(book => book.authorId === parent.id);
+          return targetBooks;
+        }
       }
     }
   }
