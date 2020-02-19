@@ -65,7 +65,7 @@ const BookType = new GraphQLObjectType({
 
       */
 
-      author: {
+      author: { // HEY: This is the name of one of the fields in the JSON object that will be returned as a response to the client; 
         type: AuthorType,
         resolve: (parent, args) => {
           // here, we will write out the logic and operation to grab the author object related to this book object;
@@ -111,7 +111,7 @@ const RootQuery = new GraphQLObjectType({
   name: "RootQueryType", // this is the name that will appear in either GraphiQL or GraphQL Playground in the introspective self-documentation;
   description: "This is a description", // this is the description that will appear in either GraphiQL or GraphQL Playground in the introspective self-documentation;
   fields: {
-    book: {
+    getBook: { // this is a possible convention for query names (C[R]UD) in GraphQL; this is the closest thing to a RESTful endpoint;
       type: BookType,
       args: {
         id: {
@@ -134,7 +134,7 @@ const RootQuery = new GraphQLObjectType({
         return targetBook;
       }
     },
-    author: {
+    getAuthor: {
       type: AuthorType,
       args: {
         id: {
