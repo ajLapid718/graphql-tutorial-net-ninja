@@ -77,7 +77,10 @@ const BookType = new GraphQLObjectType({
           // this is similar to eager-loading in that we can grab related data and give it back to the user as an additional property;
           // HOWEVER, this is different from eager-loading as this system approaches that same end-goal, but with lazy-loading instead;
           // this information and this resolver function will only fire off if AND ONLY IF the client specifically queries for it;
-          // this is vastly different from eager-loading, which will append the data to each and every response;
+          // this is vastly different from eager-loading, which will append the
+          // data to each and every response;
+          // console.log("parent???", parent) // NB: CLARIFICATION ----------->
+          // parent === the object returned by resolver function to get book node above;
           const targetAuthor = authors.find(author => author.id === parent.authorId);
           return targetAuthor;
         }
@@ -122,7 +125,11 @@ const RootQuery = new GraphQLObjectType({
         // the data type of args.id here is a string, regardless of how it is inputted (as an integer or as a string) on the client-side;
         // an error will be raised if the argument on the client-side is anything other than an integer or a string;
         // specifying GraphQLID helps with self-documenting code;
-        // this resolve function should return an object that is shaped in a legal way such that it will pass all the enforced validations;
+        // this resolve function should return an object that is shaped in a
+        // legal way such that it will pass all the enforced validations;
+        // if this resolver function is called in another place, the node
+        // returned from this resolver function will be the parent argument
+        // passed into the nested/subsequent child resolver function;
         const targetBook = books.find(book => book.id === args.id);
         return targetBook;
       }
