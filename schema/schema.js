@@ -9,6 +9,7 @@ const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList } = graphql;
 
 const Author = require("../models/author");
+const Book = require("../models/book");
 
 // dummy data/mockDB;
 // const books = [
@@ -195,10 +196,33 @@ const Mutation = new GraphQLObjectType({
       },
       resolve: async (parent, args) => {
         try {
-          let author = await new Author({name: args.name, age: args.age});
+          let author = new Author({name: args.name, age: args.age});
           let savedAuthor = await author.save();
-          console.log(savedAuthor);
           return savedAuthor;
+        }
+        catch (err) {
+          return err;
+        }
+      }
+    },
+    addBook: {
+      type: BookType,
+      args: {
+        name: {
+          type: GraphQLString
+        },
+        genre: {
+          type: GraphQLString
+        },
+        authorId: {
+          type: GraphQLID
+        }
+      },
+      resolve: async (parent, args) => {
+        try {
+          let book = new Book({name: args.name, genre: args.genre, authorId: args.authorId});
+          let savedBook = await book.save();
+          return savedBook;
         }
         catch (err) {
           return err;
