@@ -1,3 +1,5 @@
+require("./secrets.js");
+
 const express = require("express");
 const app = express();
 const PORT = 4000;
@@ -5,7 +7,11 @@ const PORT = 4000;
 const graphqlHTTP = require("express-graphql");
 const schema = require("./schema/schema.js");
 
-// prepare for connection to MongoDB Atlas;
+const mongoose = require("mongoose");
+
+const connectionURL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.CLUSTER_NAME}-pw1c5.mongodb.net/test?retryWrites=true&w=majority`;
+
+mongoose.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // graphqlHTTP is a function, which takes in an options object, that will fire off on every incoming request;
 // middleware for express; takes an options object or function as input to configure behavior, and returns an express middleware;
