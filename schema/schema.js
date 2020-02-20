@@ -92,6 +92,9 @@ const BookType = new GraphQLObjectType({
           
           // const targetAuthor = authors.find(author => author.id === parent.authorId);
           // return targetAuthor;
+
+          let foundAuthor = Author.findById({_id: parent.authorId});
+          return foundAuthor;
         }
       }
     }
@@ -116,6 +119,8 @@ const AuthorType = new GraphQLObjectType({
         resolve: (parent, args) => {
           // const targetBooks = books.filter(book => book.authorId === parent.id);
           // return targetBooks;
+          let foundBooks = Book.find({authorId: parent.id});
+          return foundBooks;
         }
       }
     }
@@ -151,12 +156,16 @@ const RootQuery = new GraphQLObjectType({
         // passed into the nested/subsequent child resolver function;
         // const targetBook = books.find(book => book.id === args.id);
         // return targetBook;
+        let foundBook = Book.findById({_id: args.id});
+        return foundBook;
       }
     },
     getBooks: {
       type: BooksType,
       resolve: (parent, args) => {
         // return books;
+        let foundBooks = Book.find();
+        return foundBooks;
       }
     },
     getAuthor: {
@@ -169,12 +178,16 @@ const RootQuery = new GraphQLObjectType({
       resolve: (parent, args) => {
         // const targetAuthor = authors.find(author => author.id === args.id);
         // return targetAuthor;
+        let foundAuthor = Author.findById({_id: args.id});
+        return foundAuthor;
       }
     },
     getAuthors: {
       type: AuthorsType, // if "type" field is omitted, this will raise an error --> this is mandatory;
       resolve: (parent, args) => {
         // return authors;
+        let foundAuthors = Author.find();
+        return foundAuthors;
       }
     }
   }
