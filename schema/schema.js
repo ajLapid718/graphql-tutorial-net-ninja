@@ -9,20 +9,20 @@ const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList } = graphql;
 
 // dummy data/mockDB;
-const books = [
-  { id: "1", name: "Name of the Wind", genre: "Fantasy", authorId: "1" },
-  { id: "2", name: "The Final Empire", genre: "Fantasy", authorId: "2"},
-  { id: "3", name: "The Long Earth", genre: "Sci-Fi", authorId: "3" },
-  { id: "4", name: "The Hero of Ages", genre: "Fantasy", authorId: "2" },
-  { id: "5", name: "The Colour of Magic", genre: "Fantasy", authorId: "3" },
-  { id: "6", name: "The Light Fantastic", genre: "Fantasy", authorId: "2" }
-];
+// const books = [
+//   { id: "1", name: "Name of the Wind", genre: "Fantasy", authorId: "1" },
+//   { id: "2", name: "The Final Empire", genre: "Fantasy", authorId: "2"},
+//   { id: "3", name: "The Long Earth", genre: "Sci-Fi", authorId: "3" },
+//   { id: "4", name: "The Hero of Ages", genre: "Fantasy", authorId: "2" },
+//   { id: "5", name: "The Colour of Magic", genre: "Fantasy", authorId: "3" },
+//   { id: "6", name: "The Light Fantastic", genre: "Fantasy", authorId: "2" }
+// ];
 
-const authors = [
-  { id: "1", name: "Patrick Rothfuss", age: 44 },
-  { id: "2", name: "Brandon Sanderson", age: 42 },
-  { id: "3", name: "Terry Pratchett", age: 66 }
-];
+// const authors = [
+//   { id: "1", name: "Patrick Rothfuss", age: 44 },
+//   { id: "2", name: "Brandon Sanderson", age: 42 },
+//   { id: "3", name: "Terry Pratchett", age: 66 }
+// ];
 
 // responsibility 1: define types; if any of the actual data values of an entity
 // of data goes against the type properties defined here, the client will still
@@ -87,8 +87,8 @@ const BookType = new GraphQLObjectType({
           // console.log("parent???", parent) // NB: CLARIFICATION ----------->
           // parent === the object returned by resolver function to get book node above;
           
-          const targetAuthor = authors.find(author => author.id === parent.authorId);
-          return targetAuthor;
+          // const targetAuthor = authors.find(author => author.id === parent.authorId);
+          // return targetAuthor;
         }
       }
     }
@@ -111,8 +111,8 @@ const AuthorType = new GraphQLObjectType({
       books: {
         type: BooksType,
         resolve: (parent, args) => {
-          const targetBooks = books.filter(book => book.authorId === parent.id);
-          return targetBooks;
+          // const targetBooks = books.filter(book => book.authorId === parent.id);
+          // return targetBooks;
         }
       }
     }
@@ -146,14 +146,14 @@ const RootQuery = new GraphQLObjectType({
         // if this resolver function is called in another place, the node
         // returned from this resolver function will be the parent argument
         // passed into the nested/subsequent child resolver function;
-        const targetBook = books.find(book => book.id === args.id);
-        return targetBook;
+        // const targetBook = books.find(book => book.id === args.id);
+        // return targetBook;
       }
     },
     getBooks: {
       type: BooksType,
       resolve: (parent, args) => {
-        return books;
+        // return books;
       }
     },
     getAuthor: {
@@ -164,14 +164,14 @@ const RootQuery = new GraphQLObjectType({
         }
       },
       resolve: (parent, args) => {
-        const targetAuthor = authors.find(author => author.id === args.id);
-        return targetAuthor;
+        // const targetAuthor = authors.find(author => author.id === args.id);
+        // return targetAuthor;
       }
     },
     getAuthors: {
       type: AuthorsType, // if "type" field is omitted, this will raise an error --> this is mandatory;
       resolve: (parent, args) => {
-        return authors;
+        // return authors;
       }
     }
   }
