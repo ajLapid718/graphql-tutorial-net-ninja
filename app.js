@@ -9,7 +9,7 @@ const schema = require("./schema/schema.js");
 
 const mongoose = require("mongoose");
 
-const connectionURL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.CLUSTER_NAME}-pw1c5.mongodb.net/test?retryWrites=true&w=majority`;
+const connectionURL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.CLUSTER_NAME}-pw1c5.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 mongoose.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true });
 

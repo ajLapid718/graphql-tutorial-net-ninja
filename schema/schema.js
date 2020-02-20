@@ -8,6 +8,8 @@
 const graphql = require("graphql");
 const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList } = graphql;
 
+const Author = require("../models/author");
+
 // dummy data/mockDB;
 // const books = [
 //   { id: "1", name: "Name of the Wind", genre: "Fantasy", authorId: "1" },
@@ -177,6 +179,35 @@ const RootQuery = new GraphQLObjectType({
   }
 })
 
+const Mutation = new GraphQLObjectType({
+  name: "MutationType",
+  description: "This is a description...",
+  fields: {
+    addAuthor: {
+      type: AuthorType,
+      args: {
+        name: {
+          type: GraphQLString
+        },
+        age: {
+          type: GraphQLInt
+        }
+      },
+      resolve: async (parent, args) => {
+        try {
+          let author = await new Author({name: args.name, age: args.age});
+          let savedAuthor = await author.save();
+          console.log(savedAuthor);
+          return savedAuthor;
+        }
+        catch (err) {
+          return err;
+        }
+      }
+    }
+  }
+})
+
 /*
 
 SAMPLE QUERY AT THIS POINT;
@@ -196,7 +227,8 @@ author (id: "1") {
 // schema definition: by defining a schema we define the entities that exist, but also the different queries and mutations that are possible to make;
 
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation: Mutation
 });
 
 /* 
