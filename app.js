@@ -5,6 +5,8 @@ const PORT = 4000;
 const graphqlHTTP = require("express-graphql");
 const schema = require("./schema/schema.js");
 
+// prepare for connection to MongoDB Atlas;
+
 // graphqlHTTP is a function, which takes in an options object, that will fire off on every incoming request;
 // middleware for express; takes an options object or function as input to configure behavior, and returns an express middleware;
 
