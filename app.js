@@ -3,6 +3,7 @@ require("./secrets.js");
 const express = require("express");
 const app = express();
 const PORT = 4000;
+const cors = require("cors");
 
 const graphqlHTTP = require("express-graphql");
 const schema = require("./schema/schema.js");
@@ -47,6 +48,9 @@ after passing in the schema, and then hitting the "/graphql" endpoint, this will
 // so now we have a schema, but we need to provide a query in order to "enter" and "walk" through the schema;
 
 */
+
+// enable cross-origin resource sharing;
+app.use(cors());
 
 app.use("/graphql", graphqlHTTP({
   schema, // schema: schema;
