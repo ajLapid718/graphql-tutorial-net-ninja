@@ -135,7 +135,7 @@ const RootQuery = new GraphQLObjectType({
   name: "RootQueryType", // this is the name that will appear in either GraphiQL or GraphQL Playground in the introspective self-documentation;
   description: "This is a description", // this is the description that will appear in either GraphiQL or GraphQL Playground in the introspective self-documentation;
   fields: {
-    getBook: { // this is a possible convention for query names (C[R]UD) in GraphQL; this is the closest thing to a RESTful endpoint;
+    book: { // this is a possible convention for query names (C[R]UD) in GraphQL; this is the closest thing to a RESTful endpoint;
       type: BookType,
       args: {
         id: {
@@ -160,7 +160,7 @@ const RootQuery = new GraphQLObjectType({
         return foundBook;
       }
     },
-    getBooks: {
+    books: {
       type: BooksType,
       resolve: (parent, args) => {
         // return books;
@@ -168,7 +168,7 @@ const RootQuery = new GraphQLObjectType({
         return foundBooks;
       }
     },
-    getAuthor: {
+    author: {
       type: AuthorType,
       args: {
         id: {
@@ -182,7 +182,7 @@ const RootQuery = new GraphQLObjectType({
         return foundAuthor;
       }
     },
-    getAuthors: {
+    authors: {
       type: AuthorsType, // if "type" field is omitted, this will raise an error --> this is mandatory;
       resolve: (parent, args) => {
         // return authors;
