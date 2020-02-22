@@ -6,7 +6,7 @@
 // 2) define relationships between types;
 // 3) define root queries (how we describe to the client entry points to the graph);
 const graphql = require("graphql");
-const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLSchema, GraphQLID, GraphQLInt, GraphQLList, GraphQLNonNull } = graphql;
 
 const Author = require("../models/author");
 const Book = require("../models/book");
@@ -201,10 +201,10 @@ const Mutation = new GraphQLObjectType({
       type: AuthorType,
       args: {
         name: {
-          type: GraphQLString
+          type: new GraphQLNonNull(GraphQLString)
         },
         age: {
-          type: GraphQLInt
+          type: new GraphQLNonNull(GraphQLInt)
         }
       },
       resolve: async (parent, args) => {
@@ -222,13 +222,13 @@ const Mutation = new GraphQLObjectType({
       type: BookType,
       args: {
         name: {
-          type: GraphQLString
+          type: new GraphQLNonNull(GraphQLString)
         },
         genre: {
-          type: GraphQLString
+          type: new GraphQLNonNull(GraphQLString)
         },
         authorId: {
-          type: GraphQLID
+          type: new GraphQLNonNull(GraphQLID)
         }
       },
       resolve: async (parent, args) => {
