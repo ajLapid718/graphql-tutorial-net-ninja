@@ -4,6 +4,7 @@ const express = require("express");
 const app = express();
 const PORT = 4000;
 const cors = require("cors");
+const morgan = require("morgan");
 
 const graphqlHTTP = require("express-graphql");
 const schema = require("./schema/schema.js");
@@ -13,7 +14,7 @@ const mongoose = require("mongoose");
 const connectionURL = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.CLUSTER_NAME}-pw1c5.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 mongoose.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true });
-
+// mongoose.set('debug', true);
 mongoose.connection.once("open", () => {
   console.log("connected to database!!!");
 });
@@ -51,6 +52,7 @@ after passing in the schema, and then hitting the "/graphql" endpoint, this will
 
 // enable cross-origin resource sharing;
 app.use(cors());
+app.use(morgan("dev"));
 
 app.use("/graphql", graphqlHTTP({
   schema, // schema: schema;
